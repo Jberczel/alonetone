@@ -5,16 +5,16 @@ export default class extends HeartController {
     id: Number,
   }
 
+  static outlets = [ "favorite" ]
+
   isFavorited() {
     return window.userFavorites.includes(this.idValue)
   }
 
-  update(e) {
-    this.dispatch('broadcast', { detail: { id: this.idValue }, target: window })
-  }
-
-  toggle(e) {
-    if (this.idValue === e.detail.id)
-      super.toggle()
+  update() {
+    this.favoriteOutlets.forEach((result) => {
+      if (this.idValue == result.idValue)
+        result.toggle()
+    })
   }
 }
